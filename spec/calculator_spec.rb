@@ -89,4 +89,22 @@ describe Calculator do
   end
 
 
+  describe "#pow" do
+    let(:calc) { Calculator.new }
+
+    it "raises the first number to the power of the second" do
+      expect(calc.pow(4, 3)).to eq(64)
+    end
+
+    it "applies negative powers as 1 / x^n" do
+      expect(calc.pow(3, -2)).to be_within(0.001).of(0.1111)
+    end
+
+    it "applies decimal powers by getting the n-th root" do
+      expect(calc.pow(9, 0.5)).to eq(3)
+      expect(calc.pow(256, 0.25)).to eq(4)
+    end
+
+  end
+
 end
