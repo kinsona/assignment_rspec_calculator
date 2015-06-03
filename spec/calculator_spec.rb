@@ -107,4 +107,95 @@ describe Calculator do
 
   end
 
+
+  describe "#sqrt" do
+    let(:calc) { Calculator.new }
+
+    it "calculates square roots for positive numbers" do
+      expect(calc.sqrt(9)).to eq(3)
+    end
+
+    it "raises an error for negative numbers" do
+      expect { calc.sqrt(-4) }.to raise_error
+    end
+
+    it "returns integers for round number roots" do
+      expect(calc.sqrt(16)).to be_a(Integer)
+    end
+
+    it "returns 2-decimals for non-round numbers" do
+      expect(calc.sqrt(30)).to eq(5.48)
+    end
+
+  end
+
+
+  describe "#memory=" do
+    let(:calc) { Calculator.new }
+
+    it "stores an object in memory" do
+      calc.memory = 6
+      expect(calc.memory).to eq(6)
+    end
+
+    #foo.instance_variable_set(:@foo, 12)
+    it "overwrites any previous object in memory" do
+      calc.instance_variable_set(:@memory, 12)
+      calc.memory = 8
+      expect(calc.memory).to eq(8)
+    end
+
+  end
+
+
+  describe "#memory" do
+    let(:calc) { Calculator.new }
+
+    it "returns the object in memory" do
+      calc.instance_variable_set(:@memory, 6)
+      expect(calc.memory).to eq(6)
+    end
+
+    it "clears memory when returned" do
+      calc.instance_variable_set(:@memory, 6)
+      calc.memory
+      expect(calc.memory).to be_nil
+    end
+
+    it "starts as nil" do
+      expect(calc.memory).to be_nil
+    end
+
+  end
+
+
+  describe "#stringify" do
+    let(:calc) { Calculator.new(:stringify) }
+
+    it "returns #add output as a string" do
+      expect(calc.add(3,4)).to be_a(String)
+    end
+
+    it "returns #subtract output as a string" do
+      expect(calc.subtract(9,4)).to be_a(String)
+    end
+
+    it "returns #multiply output as a string" do
+      expect(calc.multiply(3,4)).to be_a(String)
+    end
+
+    it "returns #divide output as a string" do
+      expect(calc.divide(16,4)).to be_a(String)
+    end
+
+    it "returns #pow output as a string" do
+      expect(calc.pow(3,4)).to be_a(String)
+    end
+
+    it "returns #sqrt output as a string" do
+      expect(calc.sqrt(25)).to be_a(String)
+    end
+
+  end
+
 end
